@@ -33,10 +33,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 let alerta = UIAlertController(title: "Ubicación", message: "Tus coordenadas actuales son:\n LAT: \(LAT), LON: \(LON)", preferredStyle: .alert)
                 
                 let actionAceptar = UIAlertAction(title: "Aceptar", style: .default, handler: nil)
-                let actionCancelar = UIAlertAction(title: "Ver más...", style: .default, handler: nil)
+                let actionVerMas = UIAlertAction(title: "Ver más...", style: .default) { (_) in
+                    //Hacer zoom a la ubicación en el mapa
+                    let localizacion = CLLocationCoordinate2D(latitude: LAT, longitude: LON)
+                    let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                    let region = MKCoordinateRegion(center: localizacion, span: span)
+                    self.MV_Mapa.setRegion(region, animated: true)
+                    
+                    self.MV_Mapa.showsUserLocation = true
+                }
                 
                 alerta.addAction(actionAceptar)
-                alerta.addAction(actionCancelar)
+                alerta.addAction(actionVerMas)
                 
                 present(alerta, animated: true, completion: nil)
             }
