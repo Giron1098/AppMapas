@@ -30,12 +30,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         {
             if let LON = self.longitud
             {
-                let alerta = UIAlertController(title: "Ubicación", message: "Tus coordenadas actuales son:\n LAT: \(LAT), LON: \(LON)", preferredStyle: .alert)
+                let alerta = UIAlertController(title: "Ubicación", message: "Tus coordenadas actuales son:\n LAT: \(LAT) \nLON: \(LON)", preferredStyle: .alert)
                 
                 let actionAceptar = UIAlertAction(title: "Aceptar", style: .default, handler: nil)
-                let actionVerMas = UIAlertAction(title: "Ver más...", style: .default) { (_) in
+                let actionVerMas = UIAlertAction(title: "Ver en el Mapa", style: .default) { (_) in
                     //Hacer zoom a la ubicación en el mapa
-                    let localizacion = CLLocationCoordinate2D(latitude: LAT, longitude: LON)
+                    let localizacion = CLLocationCoordinate2DMake(LAT, LON)
                     let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
                     let region = MKCoordinateRegion(center: localizacion, span: span)
                     self.MV_Mapa.setRegion(region, animated: true)
@@ -55,11 +55,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first
         {
-            print("Ubicación obtenida")
+            print("Mi ubicación - Ubicación obtenida")
             self.latitud = location.coordinate.latitude
             self.longitud = location.coordinate.longitude
         } else {
-            print("Error al obtener la ubicación")
+            print("Mi ubicación - Error al obtener la ubicación")
         }
     }
 
