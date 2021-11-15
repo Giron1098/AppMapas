@@ -121,6 +121,13 @@ class BusquedaViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         {
             let geocoder = CLGeocoder()
             
+            //LIMPIAR MAPA AL REALIZAR UN NUEVO TRAZADO DE RUTAS
+            let overlays = MV_MapaBusqueda.overlays
+            let annotations = MV_MapaBusqueda.annotations
+            
+            MV_MapaBusqueda.removeOverlays(overlays)
+            MV_MapaBusqueda.removeAnnotations(annotations)
+            
             geocoder.geocodeAddressString(SB_Busqueda.text!) { (places: [CLPlacemark]?, error: Error?) in
                 
                 //Crear destino para la ruta
